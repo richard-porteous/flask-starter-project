@@ -11,10 +11,15 @@ migrate = Migrate(app, db)
 
 bootstrap = Bootstrap(app)
 
-from app.main import bp as main_bp
+from starter.main import bp as main_bp
 app.register_blueprint(main_bp)
 
-from app.errors import bp as errors_bp
+from starter.errors import bp as errors_bp
 app.register_blueprint(errors_bp)
 
-from app import models
+from starter import models
+
+@app.shell_context_processor
+def make_shell_context():
+    return { 'db': db, 'User': models.User }
+
