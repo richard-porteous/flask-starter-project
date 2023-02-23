@@ -5,24 +5,37 @@ from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 
-app = Flask(__name__)
-app.config.from_object(Config)
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-
-login = LoginManager(app)
+db = SQLAlchemy()
+migrate = Migrate()
+login = LoginManager()
 login.login_view = 'auth.login'
+bootstrap = Bootstrap()
 
-bootstrap = Bootstrap(app)
+def create_app(config_class=Config):
 
-from starter.main import bp as main_bp
-app.register_blueprint(main_bp)
+    app = Flask(__name__)
+    app.config.from_object(config_class)
 
-from starter.auth import bp as auth_bp
-app.register_blueprint(auth_bp)
+    db.init_app(app)
+    migrate.init_app(app, db)
+    login.init_app(app)
+    bootstrap.init_app(app)
 
-from starter.errors import bp as errors_bp
-app.register_blueprint(errors_bp)
+    from starter.main import bp as main_bp
+    app.register_blueprint(main_bp)
+
+    from starter.auth import bp as auth_bp
+    app.register_blueprint(auth_bp, url_prefix='/auth')
+
+    from starter.errors import bp as errors_bp
+    app.register_blueprint(errors_bp)
+
+    # app.testing is true during unit tests
+    if not app.debug and not app.testing:
+        # logging setup
+        pass
+
+    return app
 
 from starter import models
 

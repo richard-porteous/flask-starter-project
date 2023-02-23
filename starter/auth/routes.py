@@ -1,5 +1,5 @@
 
-from flask import render_template, flash, redirect, url_for, request
+from flask import current_app, render_template, flash, redirect, url_for, request
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user
 from starter.auth.forms import LoginForm, RegistrationForm
