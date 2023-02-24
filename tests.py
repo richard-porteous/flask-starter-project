@@ -14,6 +14,7 @@ class TestConfig(Config):
 
 class UserModelCase(unittest.TestCase):
     def setUp(self):
+        # set up app.context
         self.app = create_app(TestConfig)
         self.app_context = self.app.app_context()
         self.app_context.push()
