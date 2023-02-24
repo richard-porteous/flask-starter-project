@@ -2,6 +2,8 @@
 
 So this is is more of a 'what-next' after reading or working-through Miguels Microblog Flask Mega Tutorial. I included his licence, but you should grab his licence if you plan on using this. If I take this app further it may reach a point where it looses the need to use that Licence. At this point it hasn't 2023-02-24.
 
+see my blog at https://richard-porteous.github.io/2023/02/10/001-Flask.html
+
 
 ## Running on a server
 
